@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
-# require './lib/video_recipes'
-#
-require "bundler/setup"
-require "./lib/video_recipes"
+# require './lib/z_auto_parts'
 
-VideoRecipes::CLI.new.call
+require "bundler/setup"
+require "./lib/z_auto_parts"
+
+ZAutoParts::CLI.new.call

@@ -1,39 +1,39 @@
 #Our CLI Controller
 
-class VideoRecipes::CLI
+class ZAutoParts::CLI
 
   def call
-    list_recipes
+    list_parts
     menu
     goodbye
   end
 
-  def list_recipes
+  def list_parts
     #get recipes
     # using here doc, google it, it's just like a giant string
-    puts "I hope you're hungry."
+    puts "Welcome, are you ready to save some money?"
     # puts <<-DOC.gsub /^\s*/, ''
     # 1. Chicken - Make chicken.
     # 2. Steak - Make steak.
     # DOC
-    @recipes = VideoRecipes::Recipe.today
+    @parts = ZAutoParts::Deal.today
     #this is a little trick by putting the (1) we don't have to put -1, it starts the index at 1.
-    @recipes.each.with_index(1) do |recipe, i|
-      puts "#{i}. #{recipe.name} - #{recipe.recipe}"
+    @parts.each.with_index(1) do |part, i|
+      puts "#{i}. #{part.name} - #{part.description}"
     end
   end
 
   def menu
     input = nil
     while input != "exit"
-      puts "Enter the number of the recipe you'd like more info on or type list to see recipes again or type exit:"
+      puts "Enter the number of the part you'd like more info on or type list to see parts again or type exit:"
       input = gets.strip.downcase
       #this is so if you put in a string, it won't read as an integer. This is because the .to_i value of a string is 0.
       if input.to_i > 0
-        the_recipe = @recipes[input.to_i - 1]
-        puts "#{the_recipe.name} - #{the_recipe.recipe}"
+        the_part = @parts[input.to_i - 1]
+        puts "#{the_part.name} - #{the_recipe.description}"
       elsif input == "list"
-        list_recipes
+        list_parts
       else
         puts "Please enter valid command"
       # case input
@@ -50,7 +50,7 @@ class VideoRecipes::CLI
   end
 
   def goodbye
-    puts "Enjoy your food."
+    puts "Happy shopping!"
   end
 
 end
