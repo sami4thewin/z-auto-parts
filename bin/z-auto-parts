@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+# require './lib/video_recipes'
+#
+require "bundler/setup"
+require "./lib/video_recipes"
+
+VideoRecipes::CLI.new.call
