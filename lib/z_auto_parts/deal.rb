@@ -2,6 +2,7 @@ class ZAutoParts::Deal
 
   attr_accessor :name, :price, :description, :url
 
+
   @@deals = []
 
   def self.today
@@ -10,7 +11,7 @@ class ZAutoParts::Deal
     self.scrape_description
     self.scrape_url
     #scrape simple recipes and then return recipes based on that data
-
+    @@deals
     #return a bunch of recipes
     # puts <<-DOC.gsub /^\s*/, ''
     # 1. Chicken - Make chicken.
@@ -54,7 +55,8 @@ class ZAutoParts::Deal
       # x.save
       @@deals << x
     end
-    binding.pry
+    # binding.pry
+    # @@deals
   # end
   end
 
@@ -64,14 +66,19 @@ class ZAutoParts::Deal
     prices = doc.css("div.content-call-out")
     i = 0
     if i < prices.length
+      # binding.pry
     prices.each do |price|
-      price.at_css(".content-sub-call-out").remove
-      actual_price = price.text.strip
+      # binding.pry
+      ayo = /\$\d*/.match(price.text)
+      # price.at_css(".content-sub-call-out").remove
+      # actual_price = price.text.strip
+      actual_price = ayo[0]
       current_deal = @@deals[i]
       current_deal.price = actual_price
       i += 1
     end
   end
+  # @@deals
     # binding.pry
   end
 
@@ -94,6 +101,7 @@ class ZAutoParts::Deal
     #   i += 1
     # end
 # binding.pry
+# @@deals
   end
 
   def self.scrape_url
@@ -104,6 +112,8 @@ class ZAutoParts::Deal
       current_deal = @@deals[i]
       current_deal.url = e.attributes["href"].value
     end
+    # binding.pry
+    # @@deals
     # doc.css(".content-specs > .button")[0].attributes['href'].value
     # href = doc.css('#block a')[0]["href"]
   end
