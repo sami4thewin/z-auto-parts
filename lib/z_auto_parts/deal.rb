@@ -32,34 +32,39 @@ class ZAutoParts::Deal
 
   def self.scrape_prices
     #second iteration
-    i = 20
-    @@deals.each do |deal|
-      deal.price = i
-      i -= 1
-    end
+    # i = 20
+    # @@deals.each do |deal|
+    #   deal.price = i
+    #   i -= 1
+    # end
     # binding.pry
-  #   doc = Nokogiri::HTML(open("http://dealnews.com/c238/Automotive/"))
-  #   prices = doc.css("div.content-call-out")
-  #   i = 0
-  #   if i < prices.length
+    doc = Nokogiri::HTML(open("http://dealnews.com/c238/Automotive/"))
+    prices = doc.css("div.content-call-out")
+    i = 0
+    if i < prices.length
   #     # binding.pry
-  #   prices.each do |price|
+    prices.each do |price|
   #     # binding.pry
-  #     new_price = /\$\d*/.match(price.text)
-  #     almost_price = new_price[0]
-  #     almost_price.slice!"$"
-  #     actual_price = almost_price.to_i
+      if new_price = /\$\d*/.match(price.text)
+      # new_price = /\$\d*/.match(price.text)
+        almost_price = new_price[0]
+        almost_price.slice!"$"
+        actual_price = almost_price.to_i
+      else
+        actual_price = 0
+        # binding.pry
+      end
   #
   #     binding.pry
   #     # actual_price = new_price[0]
   #     # price.at_css(".content-sub-call-out").remove
   #     # actual_price = price.text.strip
 
-  #     current_deal = @@deals[i]
-  #     current_deal.price = actual_price
-  #     i += 1
-  #   end
-  # end
+      current_deal = @@deals[i]
+      current_deal.price = actual_price
+      i += 1
+    end
+  end
   # @@deals
     # binding.pry
   end

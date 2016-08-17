@@ -4,7 +4,7 @@ class ZAutoParts::CLI
 
   def call
     puts "Welcome, are you ready to save some money?"
-    list_parts
+    # list_parts
     menu
     goodbye
   end
@@ -16,12 +16,12 @@ class ZAutoParts::CLI
     @@parts = ZAutoParts::Deal.today
     #this is a little trick by putting the (1) we don't have to put -1, it starts the index at 1.
     @@parts.each.with_index(1) do |part, i|
-      puts "#{i}. #{part.name} - #{part.price}"
+      puts "#{i}. #{part.name.colorize(:blue)} - #{part.price}"
       # binding.pry
     end
   else
     @@parts.each.with_index(1) do |part, i|
-      puts "#{i}. #{part.name} - #{part.price}"
+      puts "#{i}. #{part.name.colorize(:blue)} - #{part.price}"
     end
   end
   end
@@ -29,7 +29,7 @@ class ZAutoParts::CLI
   def sort
     @@parts = @@parts.sort_by!{|part| part.price}
     @@parts.each.with_index(1) do |part, i|
-      puts "#{i}. #{part.name} - #{part.price}"
+      puts "#{i}. #{part.name.colorize(:magenta)} - #{part.price}"
     end
   end
 
@@ -43,7 +43,7 @@ class ZAutoParts::CLI
       #this is so if you put in a string, it won't read as an integer. This is because the .to_i value of a string is 0.
       if input.to_i > 0
         the_part = @@parts[input.to_i - 1]
-        puts "#{the_part.name} - #{the_part.price} - #{the_part.description}"
+        puts "#{the_part.name.colorize(:red)} - #{the_part.price} - #{the_part.description.colorize(:blue)}"
         puts "Would you like to launch this page? Type yes or no."
         x = gets.strip.downcase
         if x == "yes"
@@ -57,7 +57,9 @@ class ZAutoParts::CLI
       elsif input == "sort"
         sort
       else
+        if input != "exit"
         puts "Please enter valid command."
+      end
       end
     end
   end
