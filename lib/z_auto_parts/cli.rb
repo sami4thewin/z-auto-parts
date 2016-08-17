@@ -42,7 +42,7 @@ class ZAutoParts::CLI
     list_parts
     if input == "exit"
       goodbye
-    end?
+    # end
     elsif input != "exit"
       puts "Enter the number of the part you'd like more info on, or type sort to configure by price from lowest to highest, or type exit:".colorize(:magenta)
       input = gets.strip.downcase
@@ -65,6 +65,7 @@ class ZAutoParts::CLI
         end
       elsif input == "sort"
         sort
+        menu
       else
         if input != "exit"
         puts "Please enter valid command.".colorize(:green)
