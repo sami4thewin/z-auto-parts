@@ -30,7 +30,7 @@ class ZAutoParts::CLI
 
   def sort
     @@parts = @@parts.sort_by!{|part| part.price}
-    tp @@parts, :number, {:name => {:width => 50}}, :price
+    # tp @@parts, :number, {:name => {:width => 50}}, :price
     # @@parts.each.with_index(1) do |part, i|
     #   puts "#{i}. #{part.name.colorize(:magenta)} - #{part.price}"
     # end
