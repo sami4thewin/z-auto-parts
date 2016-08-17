@@ -6,7 +6,7 @@ class ZAutoParts::CLI
     puts "Welcome, are you ready to save some money?".colorize(:red)
     # list_parts
     menu
-    goodbye
+    # goodbye
   end
 
   @@parts = nil
@@ -17,11 +17,11 @@ class ZAutoParts::CLI
     #this is a little trick by putting the (1) we don't have to put -1, it starts the index at 1.
     # @@parts.each.with_index(1) do |part, i|
     #   puts "#{i}. #{part.name.colorize(:blue)} - #{part.price}"
-      tp @@parts
+      tp @@parts, :number, {:name => {:width => 50}}, :price
       # binding.pry
     # end
     else
-      tp @@parts
+      tp @@parts, :number, {:name => {:width => 50}}, :price
     # @@parts.each.with_index(1) do |part, i|
     #   puts "#{i}. #{part.name.colorize(:blue)} - #{part.price}"
     # end
@@ -30,7 +30,7 @@ class ZAutoParts::CLI
 
   def sort
     @@parts = @@parts.sort_by!{|part| part.price}
-    tp @@parts
+    tp @@parts, :number, {:name => {:width => 50}}, :price
     # @@parts.each.with_index(1) do |part, i|
     #   puts "#{i}. #{part.name.colorize(:magenta)} - #{part.price}"
     # end
@@ -40,11 +40,17 @@ class ZAutoParts::CLI
     input = nil
     x = nil
     list_parts
-    while input != "exit"
+    if input == "exit"
+      goodbye
+    end?
+    elsif input != "exit"
       puts "Enter the number of the part you'd like more info on, or type sort to configure by price from lowest to highest, or type exit:".colorize(:magenta)
       input = gets.strip.downcase
+      if input == "exit"
+        goodbye
+
       #this is so if you put in a string, it won't read as an integer. This is because the .to_i value of a string is 0.
-      if input.to_i > 0
+      elsif input.to_i > 0
         the_part = @@parts[input.to_i - 1]
         puts "#{the_part.name.colorize(:red)} - #{the_part.price} - #{the_part.description.colorize(:blue)}"
         puts "Would you like to launch this page? Type yes or no.".colorize(:blue)
