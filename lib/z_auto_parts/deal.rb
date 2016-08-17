@@ -54,7 +54,7 @@ class ZAutoParts::Deal
       # x.save
       @@deals << x
     end
-    # binding.pry
+    binding.pry
   # end
   end
 
@@ -87,7 +87,6 @@ class ZAutoParts::Deal
         i += 1
       end
     end
-
     # description.each_with_index do |bio, i|
     #   descriptor = bio.text
     #   current_deal = @@deals[i]

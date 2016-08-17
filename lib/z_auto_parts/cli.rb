@@ -17,6 +17,7 @@ class ZAutoParts::CLI
     # 2. Steak - Make steak.
     # DOC
     @parts = ZAutoParts::Deal.today
+    binding.pry
     #this is a little trick by putting the (1) we don't have to put -1, it starts the index at 1.
     @parts.each.with_index(1) do |part, i|
       puts "#{i}. #{part.name} - #{part.price}"
