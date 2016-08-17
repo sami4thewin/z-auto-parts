@@ -2,7 +2,6 @@ class ZAutoParts::Deal
 
   attr_accessor :name, :price, :description, :url
 
-
   @@deals = []
 
   def self.today
@@ -10,41 +9,12 @@ class ZAutoParts::Deal
     self.scrape_prices
     self.scrape_description
     self.scrape_url
-    #scrape simple recipes and then return recipes based on that data
     @@deals
-    #return a bunch of recipes
-    # puts <<-DOC.gsub /^\s*/, ''
-    # 1. Chicken - Make chicken.
-    # 2. Steak - Make steak.
-    # DOC
-
-    # recipe_1 = self.new
-    # recipe_1.name = "Chicken"
-    # recipe_1.recipe = "Make chicken."
-    #
-    # recipe_2 = self.new
-    # recipe_2.name = "Steak"
-    # recipe_2.recipe = "Make steak."
-    #
-    # [recipe_1, recipe_2]
   end
-
-  # def self.scrape_deals
-    #the stubbed code above which is the properties, should be scraped here
-    # deals = []
-    # deals << self.scrape_deal_news
-
-    #go to simple recipes, find the recipes, extract the properties, instantiate a recipe
-
-    # deals
-  # end
 
   def self.scrape_deal_news
     doc = Nokogiri::HTML(open("http://dealnews.com/c238/Automotive/"))
-    # each = doc.search("div.content-view content-box content-wide")
-    # first iteration
     names = doc.css("h3.headline-xlarge")
-
     names.each do |part|
       x = self.new
       x.name = part.text
@@ -62,22 +32,34 @@ class ZAutoParts::Deal
 
   def self.scrape_prices
     #second iteration
-    doc = Nokogiri::HTML(open("http://dealnews.com/c238/Automotive/"))
-    prices = doc.css("div.content-call-out")
-    i = 0
-    if i < prices.length
-      # binding.pry
-    prices.each do |price|
-      # binding.pry
-      ayo = /\$\d*/.match(price.text)
-      # price.at_css(".content-sub-call-out").remove
-      # actual_price = price.text.strip
-      actual_price = ayo[0]
-      current_deal = @@deals[i]
-      current_deal.price = actual_price
-      i += 1
+    i = 20
+    @@deals.each do |deal|
+      deal.price = i
+      i -= 1
     end
-  end
+    # binding.pry
+  #   doc = Nokogiri::HTML(open("http://dealnews.com/c238/Automotive/"))
+  #   prices = doc.css("div.content-call-out")
+  #   i = 0
+  #   if i < prices.length
+  #     # binding.pry
+  #   prices.each do |price|
+  #     # binding.pry
+  #     new_price = /\$\d*/.match(price.text)
+  #     almost_price = new_price[0]
+  #     almost_price.slice!"$"
+  #     actual_price = almost_price.to_i
+  #
+  #     binding.pry
+  #     # actual_price = new_price[0]
+  #     # price.at_css(".content-sub-call-out").remove
+  #     # actual_price = price.text.strip
+
+  #     current_deal = @@deals[i]
+  #     current_deal.price = actual_price
+  #     i += 1
+  #   end
+  # end
   # @@deals
     # binding.pry
   end
