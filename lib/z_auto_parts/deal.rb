@@ -1,12 +1,14 @@
 class ZAutoParts::Deal
 
-  attr_accessor :name, :price, :description
+  attr_accessor :name, :price, :description, :url
 
   @@deals = []
 
   def self.today
     self.scrape_deal_news
     self.scrape_prices
+    self.scrape_description
+    self.scrape_url
     #scrape simple recipes and then return recipes based on that data
 
     #return a bunch of recipes
@@ -70,16 +72,27 @@ class ZAutoParts::Deal
       i += 1
     end
   end
-    # prices[0].at_css(".content-sub-call-out").remove
-    # actual_price = prices[0].text.strip
+    # binding.pry
+  end
 
-    binding.pry
-    # i = 0
-    #  if i < prices.length
-    #   current_deal = @@deals[i]
-    #   current_deal.price = prices[i].text
-    #   i += 1
-    # end
+  def self.scrape_description
+    doc = Nokogiri::HTML(open("http://dealnews.com/c238/Automotive/"))
+    description = doc.css("div.content-body")
+    i = 0
+    if i < description.length
+      description.each do |bio|
+        descriptor = bio.text
+        current_deal = @@deals[i]
+        current_deal.description = descriptor
+        i += 1
+  end
+end
+# binding.pry
+  end
+
+  def self.scrape_url
+    doc = Nokogiri::HTML(open("http://dealnews.com/c238/Automotive/"))
+    urls = doc.css("a.button").text
   end
 
 
