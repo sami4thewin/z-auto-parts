@@ -1,6 +1,6 @@
 class ZAutoParts::Deal
 
-  attr_accessor :name, :price, :description, :url
+  attr_accessor :number, :name, :price, :description, :url
 
   @@deals = []
 
@@ -43,17 +43,17 @@ class ZAutoParts::Deal
     i = 0
     if i < prices.length
   #     # binding.pry
-    prices.each do |price|
+      prices.each do |price|
   #     # binding.pry
-      if new_price = /\$\d*/.match(price.text)
+        if new_price = /\$\d*/.match(price.text)
       # new_price = /\$\d*/.match(price.text)
-        almost_price = new_price[0]
-        almost_price.slice!"$"
-        actual_price = almost_price.to_i
-      else
-        actual_price = 0
+          almost_price = new_price[0]
+          almost_price.slice!"$"
+          actual_price = almost_price.to_i
+        else
+          actual_price = 0
         # binding.pry
-      end
+        end
   #
   #     binding.pry
   #     # actual_price = new_price[0]
@@ -63,8 +63,8 @@ class ZAutoParts::Deal
       current_deal = @@deals[i]
       current_deal.price = actual_price
       i += 1
+      end
     end
-  end
   # @@deals
     # binding.pry
   end
@@ -98,6 +98,7 @@ class ZAutoParts::Deal
     output.each_with_index do |e,i|
       current_deal = @@deals[i]
       current_deal.url = e.attributes["href"].value
+      current_deal.number = i + 1
     end
     # binding.pry
     # @@deals
