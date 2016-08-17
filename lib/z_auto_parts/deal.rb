@@ -85,14 +85,28 @@ class ZAutoParts::Deal
         current_deal = @@deals[i]
         current_deal.description = descriptor
         i += 1
-  end
-end
+      end
+    end
+
+    # description.each_with_index do |bio, i|
+    #   descriptor = bio.text
+    #   current_deal = @@deals[i]
+    #   current_deal.description = descriptor
+    #   i += 1
+    # end
 # binding.pry
   end
 
   def self.scrape_url
     doc = Nokogiri::HTML(open("http://dealnews.com/c238/Automotive/"))
-    urls = doc.css("a.button").text
+    output = doc.css(".content-specs > .button")
+
+    output.each_with_index do |e,i|
+      current_deal = @@deals[i]
+      current_deal.url = e.attributes["href"].value
+    end
+    # doc.css(".content-specs > .button")[0].attributes['href'].value
+    # href = doc.css('#block a')[0]["href"]
   end
 
 

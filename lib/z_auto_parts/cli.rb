@@ -19,7 +19,7 @@ class ZAutoParts::CLI
     @parts = ZAutoParts::Deal.today
     #this is a little trick by putting the (1) we don't have to put -1, it starts the index at 1.
     @parts.each.with_index(1) do |part, i|
-      puts "#{i}. #{part.name} - #{part.description}"
+      puts "#{i}. #{part.name} - #{part.price}"
     end
   end
 
@@ -31,7 +31,7 @@ class ZAutoParts::CLI
       #this is so if you put in a string, it won't read as an integer. This is because the .to_i value of a string is 0.
       if input.to_i > 0
         the_part = @parts[input.to_i - 1]
-        puts "#{the_part.name} - #{the_recipe.description}"
+        puts "#{the_part.name} - #{the_part.price} - #{the_part.description} -#{the_part.url}"
       elsif input == "list"
         list_parts
       else
