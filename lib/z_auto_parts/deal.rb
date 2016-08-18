@@ -1,3 +1,10 @@
+# class Deal
+#
+#     attr_accessor :number, :name, :price, :description, :url
+#
+#     @@all = []
+#
+#     def
 class ZAutoParts::Deal
 
   attr_accessor :number, :name, :price, :description, :url

@@ -30,6 +30,12 @@ class ZAutoParts::CLI
 
   def sort
     @@parts = @@parts.sort_by!{|part| part.price}
+    y = 1
+    @@parts.map do |part|
+      part.number = y
+      y +=1
+    end
+    @@parts
     # tp @@parts, :number, {:name => {:width => 50}}, :price
     # @@parts.each.with_index(1) do |part, i|
     #   puts "#{i}. #{part.name.colorize(:magenta)} - #{part.price}"
@@ -44,7 +50,7 @@ class ZAutoParts::CLI
       goodbye
     # end
     elsif input != "exit"
-      puts "Enter the number of the part you'd like more info on, or type sort to configure by price from lowest to highest, or type exit:".colorize(:magenta)
+      puts "Enter the position of the part you'd like more info on, or type sort to configure by price from lowest to highest, or type exit:".colorize(:magenta)
       input = gets.strip.downcase
       if input == "exit"
         goodbye
