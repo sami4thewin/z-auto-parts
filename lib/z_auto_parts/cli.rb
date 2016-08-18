@@ -61,15 +61,15 @@ class ZAutoParts::CLI
     #   part.number = y
     #   y += 1
     # end
-    reassign_numbers(@parts)
+    reassign_numbers
     # tp @@parts, :number, {:name => {:width => 50}}, :price
     # @@parts.each.with_index(1) do |part, i|
     #   puts "#{i}. #{part.name.colorize(:magenta)} - #{part.price}"
     # end
   end
 #
-  def reassign_numbers(parts)
-    parts.each_with_index do |part, i|
+  def reassign_numbers
+    @parts.each_with_index do |part, i|
       part.number = i + 1
     end
   end
